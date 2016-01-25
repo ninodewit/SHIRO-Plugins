@@ -18,7 +18,7 @@
 
 #define DISTRHO_PLUGIN_BRAND "SHIRO"
 #define DISTRHO_PLUGIN_NAME  "Pitchotto"
-#define DISTRHO_PLUGIN_URI   "http://distrho.sf.net/plugins/Pitchotto"
+#define DISTRHO_PLUGIN_URI   "https://github.com/ninodewit/SHIRO-Plugins/plugins/pitchotto"
 
 #define DISTRHO_PLUGIN_HAS_UI        0
 #define DISTRHO_PLUGIN_IS_RT_SAFE    0
