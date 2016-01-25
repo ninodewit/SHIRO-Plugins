@@ -1,0 +1,12 @@
+*.a
+*.d
+*.o
+
+*.exe
+*.dll
+*.dylib
+*.so
+*.zip
+
+bin/*
+dpf/utils/lv2_ttl_generator
