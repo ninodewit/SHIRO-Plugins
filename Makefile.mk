@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-# Makefile for DISTRHO Plugins #
+# Makefile for SHIRO Plugins #
 # ---------------------------- #
 # Created by falkTX
 #

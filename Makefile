@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-# Makefile for DISTRHO Plugins #
+# Makefile for SHIRO Plugins #
 # ---------------------------- #
 # Created by falkTX
 #
@@ -33,6 +33,19 @@ clean:
 	$(MAKE) clean -C plugins/pitchotto
 	$(MAKE) clean -C plugins/modulay
 	$(MAKE) clean -C plugins/larynx
+
+# --------------------------------------------------------------
+
+install:
+	install -d $(DESTDIR)$(PREFIX)/lib/ladspa/
+	install -d $(DESTDIR)$(PREFIX)/lib/dssi/
+	install -d $(DESTDIR)$(PREFIX)/lib/lv2/
+	install -d $(DESTDIR)$(PREFIX)/lib/vst/
+
+	cp bin/*-ladspa.* $(DESTDIR)$(PREFIX)/lib/ladspa/
+	cp bin/*-dssi.*   $(DESTDIR)$(PREFIX)/lib/dssi/
+	cp bin/*-vst.*    $(DESTDIR)$(PREFIX)/lib/vst/
+	cp -r bin/*.lv2   $(DESTDIR)$(PREFIX)/lib/lv2/
 
 # --------------------------------------------------------------
 
