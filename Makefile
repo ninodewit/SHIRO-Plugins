@@ -43,7 +43,6 @@ install:
 	install -d $(DESTDIR)$(PREFIX)/lib/vst/
 
 	cp bin/*-ladspa.* $(DESTDIR)$(PREFIX)/lib/ladspa/
-	cp bin/*-dssi.*   $(DESTDIR)$(PREFIX)/lib/dssi/
 	cp bin/*-vst.*    $(DESTDIR)$(PREFIX)/lib/vst/
 	cp -r bin/*.lv2   $(DESTDIR)$(PREFIX)/lib/lv2/
 
