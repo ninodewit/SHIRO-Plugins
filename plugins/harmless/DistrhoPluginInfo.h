@@ -29,6 +29,6 @@
 #define DISTRHO_PLUGIN_LV2_CATEGORY "lv2:ModulatorPlugin"
 
 #define DISTRHO_PLUGIN_DESCRIPTION "Harmless is a dual-filter harmonic tremolo."
-#define DISTRHO_PLUGIN_VERSION d_cconst('D', 'V', 'b', 'r')
+#define DISTRHO_PLUGIN_VERSION d_cconst('H', 'L', 'r', 's')
 
 #endif // DISTRHO_PLUGIN_INFO_H_INCLUDED

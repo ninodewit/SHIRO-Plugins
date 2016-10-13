@@ -4,11 +4,11 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 1,
-			"revision" : 9,
+			"revision" : 10,
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 0.0, 71.0, 960.0, 549.0 ],
+		"rect" : [ 432.0, 147.0, 960.0, 549.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -29,6 +29,17 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-7",
+					"maxclass" : "ezadc~",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "signal" ],
+					"patching_rect" : [ 307.0, 16.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
 					"id" : "obj-15",
@@ -37,7 +48,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"patching_rect" : [ 155.0, 199.0, 41.0, 20.0 ],
-					"text" : "+ 499"
+					"text" : "+ 500"
 				}
 
 			}
@@ -79,7 +90,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 155.0, 174.0, 124.0, 20.0 ],
-					"text" : "expr pow(1.0980\\,$f1)"
+					"text" : "expr pow(1.0985\\,$f1)"
 				}
 
 			}
@@ -400,7 +411,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 1,
-							"revision" : 9,
+							"revision" : 10,
 							"architecture" : "x86"
 						}
 ,
@@ -853,10 +864,6 @@
 					}
 ,
 					"patching_rect" : [ 357.0, 174.0, 510.0, 20.0 ],
-					"saved_object_attributes" : 					{
-						"exportfolder" : "Macintosh HD:/Users/Nino/Documents/Git/DPF-Max-Gen/plugins/larynx/"
-					}
-,
 					"text" : "gen~ @exportfolder \"Macintosh HD:/Users/Nino/Documents/Git/DPF-Max-Gen/plugins/larynx\""
 				}
 
@@ -1041,21 +1048,39 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"source" : [ "obj-7", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-8", 0 ]
 				}
 
 			}
  ],
 		"parameters" : 		{
-			"obj-5" : [ "flonum[4]", "flonum", 0 ],
-			"obj-41" : [ "flonum[3]", "flonum", 0 ],
 			"obj-13" : [ "flonum[2]", "flonum[2]", 0 ],
-			"obj-12" : [ "flonum[5]", "flonum", 0 ],
-			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
 			"obj-8::obj-35" : [ "[5]", "Level", 0 ],
-			"obj-30" : [ "flonum[6]", "flonum[6]", 0 ],
+			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
+			"obj-5" : [ "flonum[4]", "flonum", 0 ],
+			"obj-8::obj-32" : [ "[8]", "[2]", 0 ],
 			"obj-11" : [ "flonum", "flonum", 0 ],
-			"obj-8::obj-32" : [ "[8]", "[2]", 0 ]
+			"obj-30" : [ "flonum[6]", "flonum[6]", 0 ],
+			"obj-41" : [ "flonum[3]", "flonum", 0 ],
+			"obj-12" : [ "flonum[5]", "flonum", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{

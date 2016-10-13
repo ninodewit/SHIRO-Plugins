@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 1,
-			"revision" : 9,
+			"revision" : 10,
 			"architecture" : "x86"
 		}
 ,
@@ -28,6 +28,17 @@
 		"digest" : "",
 		"tags" : "",
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "ezadc~",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "signal", "signal" ],
+					"patching_rect" : [ 245.0, 15.0, 45.0, 45.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
@@ -530,7 +541,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 1,
-							"revision" : 9,
+							"revision" : 10,
 							"architecture" : "x86"
 						}
 ,
@@ -6876,16 +6887,30 @@
 					}
 ,
 					"patching_rect" : [ 15.0, 299.0, 527.0, 20.0 ],
-					"saved_object_attributes" : 					{
-						"exportfolder" : "Macintosh HD:/Users/Nino/Documents/Git/DPF-Max-Gen/plugins/shiroverb/"
-					}
-,
 					"text" : "gen~ @exportfolder \"Macintosh HD:/Users/Nino/Documents/Git/DPF-Max-Gen/plugins/shiroverb\""
 				}
 
 			}
  ],
 		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-1", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
 				"patchline" : 				{
 					"destination" : [ "obj-51", 0 ],
 					"disabled" : 0,
@@ -7112,18 +7137,18 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-31" : [ "[2]", "[2]", 0 ],
-			"obj-16" : [ "flonum[3]", "flonum[3]", 0 ],
-			"obj-6" : [ "live.gain~", "live.gain~", 0 ],
-			"obj-12" : [ "flonum[6]", "flonum[6]", 0 ],
-			"obj-14" : [ "flonum[7]", "flonum[4]", 0 ],
-			"obj-7::obj-35" : [ "[5]", "Level", 0 ],
-			"obj-7::obj-32" : [ "[8]", "[2]", 0 ],
 			"obj-58" : [ "flonum[2]", "flonum[2]", 0 ],
+			"obj-7::obj-35" : [ "[5]", "Level", 0 ],
 			"obj-7::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
+			"obj-19" : [ "flonum[4]", "flonum[4]", 0 ],
+			"obj-7::obj-32" : [ "[8]", "[2]", 0 ],
+			"obj-6" : [ "live.gain~", "live.gain~", 0 ],
 			"obj-44" : [ "flonum", "flonum", 0 ],
+			"obj-31" : [ "[2]", "[2]", 0 ],
 			"obj-36" : [ "flonum[1]", "flonum[1]", 0 ],
-			"obj-19" : [ "flonum[4]", "flonum[4]", 0 ]
+			"obj-12" : [ "flonum[6]", "flonum[6]", 0 ],
+			"obj-16" : [ "flonum[3]", "flonum[3]", 0 ],
+			"obj-14" : [ "flonum[7]", "flonum[4]", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{

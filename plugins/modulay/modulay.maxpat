@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 6,
 			"minor" : 1,
-			"revision" : 9,
+			"revision" : 10,
 			"architecture" : "x86"
 		}
 ,
@@ -29,46 +29,12 @@
 		"tags" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-92",
-					"maxclass" : "number~",
-					"mode" : 2,
-					"numinlets" : 2,
+					"id" : "obj-7",
+					"maxclass" : "ezadc~",
+					"numinlets" : 1,
 					"numoutlets" : 2,
-					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 848.0, 199.0, 56.0, 20.0 ],
-					"sig" : 0.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-91",
-					"maxclass" : "number~",
-					"mode" : 2,
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 684.333313, 199.0, 56.0, 20.0 ],
-					"sig" : 0.0
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-90",
-					"maxclass" : "number~",
-					"mode" : 2,
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 520.666687, 199.0, 56.0, 20.0 ],
-					"sig" : 0.0
+					"outlettype" : [ "signal", "signal" ],
+					"patching_rect" : [ 307.0, 16.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -623,7 +589,7 @@
 						"appversion" : 						{
 							"major" : 6,
 							"minor" : 1,
-							"revision" : 9,
+							"revision" : 10,
 							"architecture" : "x86"
 						}
 ,
@@ -2133,10 +2099,6 @@
 					}
 ,
 					"patching_rect" : [ 357.0, 174.0, 523.0, 20.0 ],
-					"saved_object_attributes" : 					{
-						"exportfolder" : "Macintosh HD:/Users/Nino/Documents/Git/DPF-Max-Gen/plugins/modulay/"
-					}
-,
 					"text" : "gen~ @exportfolder \"Macintosh HD:/Users/Nino/Documents/Git/DPF-Max-Gen/plugins/modulay\""
 				}
 
@@ -2385,6 +2347,24 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"source" : [ "obj-7", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
 					"source" : [ "obj-8", 0 ]
 				}
 
@@ -2409,19 +2389,19 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-5" : [ "flonum[4]", "flonum", 0 ],
-			"obj-41" : [ "flonum[3]", "flonum", 0 ],
 			"obj-13" : [ "flonum[2]", "flonum[2]", 0 ],
-			"obj-12" : [ "flonum[5]", "flonum", 0 ],
-			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
 			"obj-8::obj-35" : [ "[5]", "Level", 0 ],
-			"obj-30" : [ "flonum[6]", "flonum[6]", 0 ],
-			"obj-11" : [ "flonum", "flonum", 0 ],
-			"obj-19" : [ "flonum[16]", "flonum[7]", 0 ],
-			"obj-25" : [ "flonum[14]", "flonum[5]", 0 ],
-			"obj-20" : [ "flonum[15]", "flonum[4]", 0 ],
+			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
+			"obj-5" : [ "flonum[4]", "flonum", 0 ],
 			"obj-8::obj-32" : [ "[8]", "[2]", 0 ],
-			"obj-101" : [ "flonum[1]", "flonum[1]", 0 ]
+			"obj-11" : [ "flonum", "flonum", 0 ],
+			"obj-25" : [ "flonum[14]", "flonum[5]", 0 ],
+			"obj-101" : [ "flonum[1]", "flonum[1]", 0 ],
+			"obj-20" : [ "flonum[15]", "flonum[4]", 0 ],
+			"obj-19" : [ "flonum[16]", "flonum[7]", 0 ],
+			"obj-30" : [ "flonum[6]", "flonum[6]", 0 ],
+			"obj-41" : [ "flonum[3]", "flonum", 0 ],
+			"obj-12" : [ "flonum[5]", "flonum", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{

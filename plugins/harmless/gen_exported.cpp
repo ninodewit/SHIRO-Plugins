@@ -33,8 +33,8 @@ typedef struct State {
 	CommonState __commonstate;
 	SineCycle m_cycle_5;
 	SineData __sinedata;
-	double m_depth_3;
-	double m_rate_4;
+	double m_rate_3;
+	double m_depth_4;
 	double m_tone_2;
 	double samplerate;
 	double m_y_1;
@@ -47,8 +47,8 @@ typedef struct State {
 		samplerate = __sr;
 		m_y_1 = 0;
 		m_tone_2 = 6000;
-		m_depth_3 = 0.5;
-		m_rate_4 = 5;
+		m_rate_3 = 7;
+		m_depth_4 = 100;
 		m_cycle_5.reset(samplerate, 0);
 		genlib_reset_complete(this);
 		
@@ -66,28 +66,29 @@ typedef struct State {
 			return __exception;
 			
 		};
-		double expr_1473 = safediv(((m_tone_2 * 2) * 3.1415926535898), 48000);
-		double sin_1474 = sin(expr_1473);
-		double clamp_1475 = ((sin_1474 <= 1e-05) ? 1e-05 : ((sin_1474 >= 0.99999) ? 0.99999 : sin_1474));
+		double mul_550 = (m_depth_4 * 0.01);
+		double expr_558 = safediv(((m_tone_2 * 2) * 3.1415926535898), 48000);
+		double sin_559 = sin(expr_558);
+		double clamp_560 = ((sin_559 <= 1e-05) ? 1e-05 : ((sin_559 >= 0.99999) ? 0.99999 : sin_559));
 		// the main sample loop;
 		while ((__n--)) { 
 			const double in1 = (*(__in1++));
-			double mix_1491 = (m_y_1 + (clamp_1475 * (in1 - m_y_1)));
-			double mix_1472 = mix_1491;
-			double sub_1480 = (in1 - mix_1472);
-			m_cycle_5.freq(m_rate_4);
-			double cycle_1478 = m_cycle_5(__sinedata);
-			double cycleindex_1479 = m_cycle_5.phase();
-			double add_1477 = (cycle_1478 + 1);
-			double mul_1476 = (add_1477 * 0.5);
-			double mul_1484 = (mix_1472 * mul_1476);
-			double rsub_1482 = (1 - mul_1476);
-			double mul_1481 = (sub_1480 * rsub_1482);
-			double add_1483 = (mul_1484 + mul_1481);
-			double mix_1492 = (in1 + (m_depth_3 * (add_1483 - in1)));
-			double out1 = mix_1492;
-			double y0_next_1486 = mix_1472;
-			m_y_1 = y0_next_1486;
+			double mix_568 = (m_y_1 + (clamp_560 * (in1 - m_y_1)));
+			double mix_557 = mix_568;
+			double sub_556 = (in1 - mix_557);
+			m_cycle_5.freq(m_rate_3);
+			double cycle_563 = m_cycle_5(__sinedata);
+			double cycleindex_564 = m_cycle_5.phase();
+			double add_562 = (cycle_563 + 1);
+			double mul_561 = (add_562 * 0.5);
+			double mul_555 = (mix_557 * mul_561);
+			double rsub_552 = (1 - mul_561);
+			double mul_554 = (sub_556 * rsub_552);
+			double add_553 = (mul_555 + mul_554);
+			double mix_569 = (in1 + (mul_550 * (add_553 - in1)));
+			double out1 = mix_569;
+			double y0_next_565 = mix_557;
+			m_y_1 = y0_next_565;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			
@@ -96,13 +97,13 @@ typedef struct State {
 		
 	};
 	inline void set_tone(double _value) {
-		m_tone_2 = (_value < 500 ? 500 : (_value > 12000 ? 12000 : _value));
-	};
-	inline void set_depth(double _value) {
-		m_depth_3 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+		m_tone_2 = (_value < 500 ? 500 : (_value > 6000 ? 6000 : _value));
 	};
 	inline void set_rate(double _value) {
-		m_rate_4 = (_value < 0.1 ? 0.1 : (_value > 10 ? 10 : _value));
+		m_rate_3 = (_value < 0.1 ? 0.1 : (_value > 20 ? 20 : _value));
+	};
+	inline void set_depth(double _value) {
+		m_depth_4 = (_value < 0 ? 0 : (_value > 100 ? 100 : _value));
 	};
 	
 } State;
@@ -146,8 +147,8 @@ void setparameter(CommonState *cself, long index, double value, void *ref) {
 	State * self = (State *)cself;
 	switch (index) {
 		case 0: self->set_tone(value); break;
-		case 1: self->set_depth(value); break;
-		case 2: self->set_rate(value); break;
+		case 1: self->set_rate(value); break;
+		case 2: self->set_depth(value); break;
 		
 		default: break;
 	}
@@ -159,8 +160,8 @@ void getparameter(CommonState *cself, long index, double *value) {
 	State *self = (State *)cself;
 	switch (index) {
 		case 0: *value = self->m_tone_2; break;
-		case 1: *value = self->m_depth_3; break;
-		case 2: *value = self->m_rate_4; break;
+		case 1: *value = self->m_rate_3; break;
+		case 2: *value = self->m_depth_4; break;
 		
 		default: break;
 	}
@@ -191,35 +192,35 @@ void * create(double sr, long vs) {
 	pi->inputmax = 1;
 	pi->hasminmax = true;
 	pi->outputmin = 500;
-	pi->outputmax = 12000;
+	pi->outputmax = 6000;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 1 ("m_depth_3")
+	// initialize parameter 1 ("m_rate_3")
 	pi = self->__commonstate.params + 1;
-	pi->name = "depth";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_depth_3;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0; 
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 0;
-	pi->outputmax = 1;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
-	// initialize parameter 2 ("m_rate_4")
-	pi = self->__commonstate.params + 2;
 	pi->name = "rate";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_rate_4;
+	pi->defaultvalue = self->m_rate_3;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
 	pi->inputmax = 1;
 	pi->hasminmax = true;
 	pi->outputmin = 0.1;
-	pi->outputmax = 10;
+	pi->outputmax = 20;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 2 ("m_depth_4")
+	pi = self->__commonstate.params + 2;
+	pi->name = "depth";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_depth_4;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0; 
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0;
+	pi->outputmax = 100;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
 	
