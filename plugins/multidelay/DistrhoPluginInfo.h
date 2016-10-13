@@ -17,8 +17,8 @@
 #define DISTRHO_PLUGIN_INFO_H_INCLUDED
 
 #define DISTRHO_PLUGIN_BRAND "SHIRO"
-#define DISTRHO_PLUGIN_NAME  "Harmless"
-#define DISTRHO_PLUGIN_URI   "https://github.com/ninodewit/SHIRO-Plugins/plugins/harmless"
+#define DISTRHO_PLUGIN_NAME  "Modulay"
+#define DISTRHO_PLUGIN_URI   "https://github.com/ninodewit/SHIRO-Plugins/plugins/modulay"
 
 #define DISTRHO_PLUGIN_HAS_UI        0
 #define DISTRHO_PLUGIN_IS_RT_SAFE    0
@@ -26,9 +26,9 @@
 #define DISTRHO_PLUGIN_NUM_OUTPUTS   1
 #define DISTRHO_PLUGIN_USES_MODGUI   1
 
-#define DISTRHO_PLUGIN_LV2_CATEGORY "lv2:ModulatorPlugin"
+#define DISTRHO_PLUGIN_LV2_CATEGORY "lv2:DelayPlugin"
 
-#define DISTRHO_PLUGIN_DESCRIPTION "Harmless is a harmonic tremolo with a crossover tone control."
-#define DISTRHO_PLUGIN_VERSION d_cconst('H', 'L', 'r', 's')
+#define DISTRHO_PLUGIN_DESCRIPTION "Modulay is a delay with variable types of modulation based on the setting of the Morph-knob."
+#define DISTRHO_PLUGIN_VERSION d_cconst('D', 'M', 'd', 'y')
 
 #endif // DISTRHO_PLUGIN_INFO_H_INCLUDED
