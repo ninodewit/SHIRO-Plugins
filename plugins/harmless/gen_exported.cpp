@@ -31,11 +31,16 @@ static const int GENLIB_LOOPCOUNT_BAIL = 100000;
 // The State struct contains all the state and procedures for the gendsp kernel
 typedef struct State { 
 	CommonState __commonstate;
-	SineCycle m_cycle_5;
-	SineData __sinedata;
-	double m_rate_3;
-	double m_depth_4;
-	double m_tone_2;
+	Phasor m_phasor_10;
+	double m_shape_6;
+	double m_rate_5;
+	double m_tone_7;
+	double m_depth_9;
+	double m_phase_8;
+	double samples_to_seconds;
+	double m_smth_4;
+	double m_y_2;
+	double m_smth_3;
 	double samplerate;
 	double m_y_1;
 	int vectorsize;
@@ -46,10 +51,16 @@ typedef struct State {
 		vectorsize = __vs;
 		samplerate = __sr;
 		m_y_1 = 0;
-		m_tone_2 = 6000;
-		m_rate_3 = 7;
-		m_depth_4 = 100;
-		m_cycle_5.reset(samplerate, 0);
+		m_y_2 = 0;
+		m_smth_3 = 0;
+		m_smth_4 = 0;
+		m_rate_5 = 4;
+		m_shape_6 = 0.5;
+		m_tone_7 = 6000;
+		m_phase_8 = 0;
+		m_depth_9 = 100;
+		samples_to_seconds = (1 / samplerate);
+		m_phasor_10.reset(0);
 		genlib_reset_complete(this);
 		
 	};
@@ -57,53 +68,83 @@ typedef struct State {
 	inline int perform(t_sample ** __ins, t_sample ** __outs, int __n) { 
 		vectorsize = __n;
 		const t_sample * __in1 = __ins[0];
+		const t_sample * __in2 = __ins[1];
 		t_sample * __out1 = __outs[0];
+		t_sample * __out2 = __outs[1];
 		if (__exception) { 
 			return __exception;
 			
-		} else if (( (__in1 == 0) || (__out1 == 0) )) { 
+		} else if (( (__in1 == 0) || (__in2 == 0) || (__out1 == 0) || (__out2 == 0) )) { 
 			__exception = GENLIB_ERR_NULL_BUFFER;
 			return __exception;
 			
 		};
-		double mul_550 = (m_depth_4 * 0.01);
-		double expr_558 = safediv(((m_tone_2 * 2) * 3.1415926535898), 48000);
-		double sin_559 = sin(expr_558);
-		double clamp_560 = ((sin_559 <= 1e-05) ? 1e-05 : ((sin_559 >= 0.99999) ? 0.99999 : sin_559));
+		double mul_2241 = (m_depth_9 * 0.01);
+		double expr_2230 = (0.0027777777777778 * m_phase_8);
+		double wrap_2229 = wrap(expr_2230, 0, 1);
+		double expr_2249 = safediv(((m_tone_7 * 2) * 3.1415926535898), 48000);
+		double sin_2250 = sin(expr_2249);
+		double clamp_2251 = ((sin_2250 <= 1e-05) ? 1e-05 : ((sin_2250 >= 0.99999) ? 0.99999 : sin_2250));
+		samples_to_seconds = (1 / samplerate);
 		// the main sample loop;
 		while ((__n--)) { 
 			const double in1 = (*(__in1++));
-			double mix_568 = (m_y_1 + (clamp_560 * (in1 - m_y_1)));
-			double mix_557 = mix_568;
-			double sub_556 = (in1 - mix_557);
-			m_cycle_5.freq(m_rate_3);
-			double cycle_563 = m_cycle_5(__sinedata);
-			double cycleindex_564 = m_cycle_5.phase();
-			double add_562 = (cycle_563 + 1);
-			double mul_561 = (add_562 * 0.5);
-			double mul_555 = (mix_557 * mul_561);
-			double rsub_552 = (1 - mul_561);
-			double mul_554 = (sub_556 * rsub_552);
-			double add_553 = (mul_555 + mul_554);
-			double mix_569 = (in1 + (mul_550 * (add_553 - in1)));
-			double out1 = mix_569;
-			double y0_next_565 = mix_557;
-			m_y_1 = y0_next_565;
+			const double in2 = (*(__in2++));
+			double mix_2268 = (m_shape_6 + (0.999 * (m_smth_4 - m_shape_6)));
+			double mix_2227 = mix_2268;
+			double mix_2269 = (wrap_2229 + (0.999 * (m_smth_3 - wrap_2229)));
+			double mix_2228 = mix_2269;
+			double mix_2270 = (m_y_2 + (clamp_2251 * (in1 - m_y_2)));
+			double mix_2248 = mix_2270;
+			double sub_2247 = (in1 - mix_2248);
+			double mix_2271 = (m_y_1 + (clamp_2251 * (in2 - m_y_1)));
+			double mix_2240 = mix_2271;
+			double sub_2239 = (in2 - mix_2240);
+			double phasor_2232 = m_phasor_10(m_rate_5, samples_to_seconds);
+			double triangle_2231 = triangle((mix_2228 + phasor_2232), mix_2227);
+			double mul_2238 = (mix_2240 * triangle_2231);
+			double rsub_2235 = (1 - triangle_2231);
+			double mul_2237 = (sub_2239 * rsub_2235);
+			double add_2236 = (mul_2238 + mul_2237);
+			double mix_2272 = (in2 + (mul_2241 * (add_2236 - in2)));
+			double out2 = mix_2272;
+			double triangle_2233 = triangle(phasor_2232, mix_2227);
+			double mul_2246 = (mix_2248 * triangle_2233);
+			double rsub_2243 = (1 - triangle_2233);
+			double mul_2245 = (sub_2247 * rsub_2243);
+			double add_2244 = (mul_2246 + mul_2245);
+			double mix_2273 = (in1 + (mul_2241 * (add_2244 - in1)));
+			double out1 = mix_2273;
+			double smth1_next_2252 = mix_2227;
+			double smth2_next_2253 = mix_2228;
+			double y0_next_2254 = mix_2248;
+			double y1_next_2255 = mix_2240;
+			m_smth_4 = smth1_next_2252;
+			m_smth_3 = smth2_next_2253;
+			m_y_2 = y0_next_2254;
+			m_y_1 = y1_next_2255;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
+			(*(__out2++)) = out2;
 			
 		};
 		return __exception;
 		
 	};
-	inline void set_tone(double _value) {
-		m_tone_2 = (_value < 500 ? 500 : (_value > 6000 ? 6000 : _value));
-	};
 	inline void set_rate(double _value) {
-		m_rate_3 = (_value < 0.1 ? 0.1 : (_value > 20 ? 20 : _value));
+		m_rate_5 = (_value < 0.1 ? 0.1 : (_value > 20 ? 20 : _value));
+	};
+	inline void set_shape(double _value) {
+		m_shape_6 = (_value < 0.01 ? 0.01 : (_value > 0.99 ? 0.99 : _value));
+	};
+	inline void set_tone(double _value) {
+		m_tone_7 = (_value < 500 ? 500 : (_value > 6000 ? 6000 : _value));
+	};
+	inline void set_phase(double _value) {
+		m_phase_8 = (_value < -180 ? -180 : (_value > 180 ? 180 : _value));
 	};
 	inline void set_depth(double _value) {
-		m_depth_4 = (_value < 0 ? 0 : (_value > 100 ? 100 : _value));
+		m_depth_9 = (_value < 0 ? 0 : (_value > 100 ? 100 : _value));
 	};
 	
 } State;
@@ -115,17 +156,17 @@ typedef struct State {
 
 /// Number of signal inputs and outputs 
 
-int gen_kernel_numins = 1;
-int gen_kernel_numouts = 1;
+int gen_kernel_numins = 2;
+int gen_kernel_numouts = 2;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
-int num_params() { return 3; }
+int num_params() { return 5; }
 
 /// Assistive lables for the signal inputs and outputs 
 
-const char * gen_kernel_innames[] = { "in1" };
-const char * gen_kernel_outnames[] = { "out1" };
+const char * gen_kernel_innames[] = { "in1", "in2" };
+const char * gen_kernel_outnames[] = { "out1", "out2" };
 
 /// Invoke the signal process of a State object
 
@@ -146,9 +187,11 @@ void reset(CommonState *cself) {
 void setparameter(CommonState *cself, long index, double value, void *ref) {
 	State * self = (State *)cself;
 	switch (index) {
-		case 0: self->set_tone(value); break;
-		case 1: self->set_rate(value); break;
-		case 2: self->set_depth(value); break;
+		case 0: self->set_rate(value); break;
+		case 1: self->set_shape(value); break;
+		case 2: self->set_tone(value); break;
+		case 3: self->set_phase(value); break;
+		case 4: self->set_depth(value); break;
 		
 		default: break;
 	}
@@ -159,9 +202,11 @@ void setparameter(CommonState *cself, long index, double value, void *ref) {
 void getparameter(CommonState *cself, long index, double *value) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: *value = self->m_tone_2; break;
-		case 1: *value = self->m_rate_3; break;
-		case 2: *value = self->m_depth_4; break;
+		case 0: *value = self->m_rate_5; break;
+		case 1: *value = self->m_shape_6; break;
+		case 2: *value = self->m_tone_7; break;
+		case 3: *value = self->m_phase_8; break;
+		case 4: *value = self->m_depth_9; break;
 		
 		default: break;
 	}
@@ -179,27 +224,13 @@ void * create(double sr, long vs) {
 	self->__commonstate.numouts = gen_kernel_numouts;
 	self->__commonstate.sr = sr;
 	self->__commonstate.vs = vs;
-	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(3 * sizeof(ParamInfo));
-	self->__commonstate.numparams = 3;
-	// initialize parameter 0 ("m_tone_2")
+	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(5 * sizeof(ParamInfo));
+	self->__commonstate.numparams = 5;
+	// initialize parameter 0 ("m_rate_5")
 	pi = self->__commonstate.params + 0;
-	pi->name = "tone";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_tone_2;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0; 
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 500;
-	pi->outputmax = 6000;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
-	// initialize parameter 1 ("m_rate_3")
-	pi = self->__commonstate.params + 1;
 	pi->name = "rate";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_rate_3;
+	pi->defaultvalue = self->m_rate_5;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
@@ -209,11 +240,53 @@ void * create(double sr, long vs) {
 	pi->outputmax = 20;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 2 ("m_depth_4")
+	// initialize parameter 1 ("m_shape_6")
+	pi = self->__commonstate.params + 1;
+	pi->name = "shape";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_shape_6;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0; 
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0.01;
+	pi->outputmax = 0.99;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 2 ("m_tone_7")
 	pi = self->__commonstate.params + 2;
+	pi->name = "tone";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_tone_7;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0; 
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 500;
+	pi->outputmax = 6000;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 3 ("m_phase_8")
+	pi = self->__commonstate.params + 3;
+	pi->name = "phase";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_phase_8;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0; 
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = -180;
+	pi->outputmax = 180;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 4 ("m_depth_9")
+	pi = self->__commonstate.params + 4;
 	pi->name = "depth";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_depth_4;
+	pi->defaultvalue = self->m_depth_9;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
