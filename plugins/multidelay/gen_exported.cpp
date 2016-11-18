@@ -36,21 +36,21 @@ typedef struct State {
 	Delay m_delay_4;
 	SineCycle m_cycle_14;
 	SineData __sinedata;
-	double m_depth_9;
-	double m_time_10;
-	double m_tone_12;
-	double m_morph_11;
-	double m_rate_8;
-	double m_repeats_6;
-	double m_smth_3;
-	double m_mix_7;
-	double m_smth_1;
-	double samplerate;
-	double m_y_2;
+	t_sample m_depth_9;
+	t_sample m_time_10;
+	t_sample m_tone_12;
+	t_sample m_morph_11;
+	t_sample m_rate_8;
+	t_sample m_repeats_6;
+	t_sample m_smth_3;
+	t_sample m_mix_7;
+	t_sample m_smth_1;
+	t_sample samplerate;
+	t_sample m_y_2;
 	int vectorsize;
 	int __exception;
 	// re-initialize all member variables;
-	inline void reset(double __sr, int __vs) { 
+	inline void reset(t_sample __sr, int __vs) { 
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
@@ -84,65 +84,65 @@ typedef struct State {
 			return __exception;
 			
 		};
-		double mul_141 = (m_mix_7 * 0.01);
-		double mstosamps_153 = (m_time_10 * (samplerate * 0.001));
-		double expr_185 = safediv(((m_tone_12 * 2) * 3.1415926535898), 48000);
-		double sin_148 = sin(expr_185);
-		double clamp_149 = ((sin_148 <= 1e-05) ? 1e-05 : ((sin_148 >= 0.99999) ? 0.99999 : sin_148));
+		t_sample mul_141 = (m_mix_7 * 0.01);
+		t_sample mstosamps_153 = (m_time_10 * (samplerate * 0.001));
+		t_sample expr_185 = safediv(((m_tone_12 * 2) * 3.1415926535898), 48000);
+		t_sample sin_148 = sin(expr_185);
+		t_sample clamp_149 = ((sin_148 <= 1e-05) ? 1e-05 : ((sin_148 >= 0.99999) ? 0.99999 : sin_148));
 		int lt_156 = (m_morph_11 < 50);
-		double mul_166 = (m_morph_11 * -0.8);
-		double add_164 = (mul_166 + 40);
-		double abs_165 = fabs(add_164);
-		double mul_169 = (abs_165 * 0.01);
-		double mul_145 = (m_repeats_6 * 0.01);
-		double mul_155 = (m_morph_11 * -0.4);
-		double add_154 = (mul_155 + 20);
-		double mul_157 = (lt_156 * add_154);
-		double mul_138 = (m_morph_11 * -0.8);
-		double add_136 = (mul_138 + 40);
-		double abs_137 = fabs(add_136);
-		double rsub_135 = (80 - abs_137);
-		double mul_139 = (rsub_135 * 0.01);
-		double mul_168 = (m_morph_11 * 0.8);
-		double sub_167 = (mul_168 - 40);
-		double mul_170 = (sub_167 * 0.01);
+		t_sample mul_166 = (m_morph_11 * -0.8);
+		t_sample add_164 = (mul_166 + 40);
+		t_sample abs_165 = fabs(add_164);
+		t_sample mul_169 = (abs_165 * 0.01);
+		t_sample mul_145 = (m_repeats_6 * 0.01);
+		t_sample mul_155 = (m_morph_11 * -0.4);
+		t_sample add_154 = (mul_155 + 20);
+		t_sample mul_157 = (lt_156 * add_154);
+		t_sample mul_138 = (m_morph_11 * -0.8);
+		t_sample add_136 = (mul_138 + 40);
+		t_sample abs_137 = fabs(add_136);
+		t_sample rsub_135 = (80 - abs_137);
+		t_sample mul_139 = (rsub_135 * 0.01);
+		t_sample mul_168 = (m_morph_11 * 0.8);
+		t_sample sub_167 = (mul_168 - 40);
+		t_sample mul_170 = (sub_167 * 0.01);
 		int gt_162 = (m_morph_11 > 50);
-		double mul_161 = (gt_162 * m_morph_11);
-		double sub_160 = (mul_161 - 50);
-		double clamp_159 = ((sub_160 <= 0) ? 0 : ((sub_160 >= 50) ? 50 : sub_160));
-		double mul_163 = (clamp_159 * 0.04);
-		double add_158 = (mul_157 + mul_163);
+		t_sample mul_161 = (gt_162 * m_morph_11);
+		t_sample sub_160 = (mul_161 - 50);
+		t_sample clamp_159 = ((sub_160 <= 0) ? 0 : ((sub_160 >= 50) ? 50 : sub_160));
+		t_sample mul_163 = (clamp_159 * 0.04);
+		t_sample add_158 = (mul_157 + mul_163);
 		// the main sample loop;
 		while ((__n--)) { 
-			const double in1 = (*(__in1++));
-			double mix_189 = (mstosamps_153 + (0.999 * (m_smth_3 - mstosamps_153)));
-			double mix_142 = mix_189;
-			double tap_152 = m_delay_5.read_linear(mix_142);
-			double mix_190 = (m_y_2 + (clamp_149 * (tap_152 - m_y_2)));
-			double mix_146 = mix_190;
-			double mul_175 = (mix_146 * mul_169);
-			double mul_150 = (mix_146 * mul_145);
-			double dcblock_143 = m_dcblock_13(mul_150);
-			double clamp_144 = ((dcblock_143 <= -1) ? -1 : ((dcblock_143 >= 1) ? 1 : dcblock_143));
+			const t_sample in1 = (*(__in1++));
+			t_sample mix_189 = (mstosamps_153 + (0.999 * (m_smth_3 - mstosamps_153)));
+			t_sample mix_142 = mix_189;
+			t_sample tap_152 = m_delay_5.read_linear(mix_142);
+			t_sample mix_190 = (m_y_2 + (clamp_149 * (tap_152 - m_y_2)));
+			t_sample mix_146 = mix_190;
+			t_sample mul_175 = (mix_146 * mul_169);
+			t_sample mul_150 = (mix_146 * mul_145);
+			t_sample dcblock_143 = m_dcblock_13(mul_150);
+			t_sample clamp_144 = ((dcblock_143 <= -1) ? -1 : ((dcblock_143 >= 1) ? 1 : dcblock_143));
 			m_cycle_14.freq(m_rate_8);
-			double cycle_180 = m_cycle_14(__sinedata);
-			double cycleindex_181 = m_cycle_14.phase();
-			double add_179 = (cycle_180 + 1);
-			double mul_178 = (add_179 * 0.5);
-			double mul_182 = (m_depth_9 * mul_178);
-			double add_171 = (mul_182 + add_158);
-			double mstosamps_177 = (add_171 * (samplerate * 0.001));
-			double mix_191 = (mstosamps_177 + (0.999 * (m_smth_1 - mstosamps_177)));
-			double mix_176 = mix_191;
-			double tap_184 = m_delay_4.read_linear(mix_176);
-			double mul_172 = (tap_184 * mul_139);
-			double mul_140 = ((mul_172 + mul_175) * mul_141);
-			double out1 = (mul_140 + in1);
-			double mul_173 = (tap_184 * mul_170);
-			double add_174 = (mix_146 + mul_173);
-			double smth1_next_186 = mix_142;
-			double y0_next_187 = mix_146;
-			double smth2_next_188 = mix_176;
+			t_sample cycle_180 = m_cycle_14(__sinedata);
+			t_sample cycleindex_181 = m_cycle_14.phase();
+			t_sample add_179 = (cycle_180 + 1);
+			t_sample mul_178 = (add_179 * 0.5);
+			t_sample mul_182 = (m_depth_9 * mul_178);
+			t_sample add_171 = (mul_182 + add_158);
+			t_sample mstosamps_177 = (add_171 * (samplerate * 0.001));
+			t_sample mix_191 = (mstosamps_177 + (0.999 * (m_smth_1 - mstosamps_177)));
+			t_sample mix_176 = mix_191;
+			t_sample tap_184 = m_delay_4.read_linear(mix_176);
+			t_sample mul_172 = (tap_184 * mul_139);
+			t_sample mul_140 = ((mul_172 + mul_175) * mul_141);
+			t_sample out1 = (mul_140 + in1);
+			t_sample mul_173 = (tap_184 * mul_170);
+			t_sample add_174 = (mix_146 + mul_173);
+			t_sample smth1_next_186 = mix_142;
+			t_sample y0_next_187 = mix_146;
+			t_sample smth2_next_188 = mix_176;
 			m_delay_5.write((clamp_144 + in1));
 			m_delay_4.write(add_174);
 			m_smth_3 = smth1_next_186;
@@ -157,25 +157,25 @@ typedef struct State {
 		return __exception;
 		
 	};
-	inline void set_repeats(double _value) {
+	inline void set_repeats(t_sample _value) {
 		m_repeats_6 = (_value < 0 ? 0 : (_value > 110 ? 110 : _value));
 	};
-	inline void set_mix(double _value) {
+	inline void set_mix(t_sample _value) {
 		m_mix_7 = (_value < 0 ? 0 : (_value > 100 ? 100 : _value));
 	};
-	inline void set_rate(double _value) {
+	inline void set_rate(t_sample _value) {
 		m_rate_8 = (_value < 0.1 ? 0.1 : (_value > 5 ? 5 : _value));
 	};
-	inline void set_depth(double _value) {
+	inline void set_depth(t_sample _value) {
 		m_depth_9 = (_value < 0.1 ? 0.1 : (_value > 3 ? 3 : _value));
 	};
-	inline void set_time(double _value) {
+	inline void set_time(t_sample _value) {
 		m_time_10 = (_value < 20 ? 20 : (_value > 1000 ? 1000 : _value));
 	};
-	inline void set_morph(double _value) {
+	inline void set_morph(t_sample _value) {
 		m_morph_11 = (_value < 0 ? 0 : (_value > 100 ? 100 : _value));
 	};
-	inline void set_tone(double _value) {
+	inline void set_tone(t_sample _value) {
 		m_tone_12 = (_value < 500 ? 500 : (_value > 6000 ? 6000 : _value));
 	};
 	
@@ -188,8 +188,8 @@ typedef struct State {
 
 /// Number of signal inputs and outputs 
 
-int gen_kernel_numins = 1;
-int gen_kernel_numouts = 1;
+const int gen_kernel_numins = 1;
+const int gen_kernel_numouts = 1;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
@@ -216,7 +216,7 @@ void reset(CommonState *cself) {
 
 /// Set a parameter of a State object 
 
-void setparameter(CommonState *cself, long index, double value, void *ref) {
+void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State * self = (State *)cself;
 	switch (index) {
 		case 0: self->set_repeats(value); break;
@@ -233,7 +233,7 @@ void setparameter(CommonState *cself, long index, double value, void *ref) {
 
 /// Get the value of a parameter of a State object 
 
-void getparameter(CommonState *cself, long index, double *value) {
+void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
 		case 0: *value = self->m_repeats_6; break;
@@ -250,7 +250,7 @@ void getparameter(CommonState *cself, long index, double *value) {
 
 /// Allocate and configure a new State object and it's internal CommonState:
 
-void * create(double sr, long vs) {
+void * create(t_param sr, long vs) {
 	State *self = new State;
 	self->reset(sr, vs);
 	ParamInfo *pi;
