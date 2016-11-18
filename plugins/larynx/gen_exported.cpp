@@ -34,16 +34,16 @@ typedef struct State {
 	Delay m_delay_3;
 	SineCycle m_cycle_7;
 	SineData __sinedata;
-	double m_depth_5;
-	double m_rate_6;
-	double samplerate;
-	double m_tone_4;
-	double m_y_2;
-	double m_smth_1;
+	t_sample m_depth_5;
+	t_sample m_rate_6;
+	t_sample samplerate;
+	t_sample m_tone_4;
+	t_sample m_y_2;
+	t_sample m_smth_1;
 	int vectorsize;
 	int __exception;
 	// re-initialize all member variables;
-	inline void reset(double __sr, int __vs) { 
+	inline void reset(t_sample __sr, int __vs) { 
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
@@ -70,27 +70,27 @@ typedef struct State {
 			return __exception;
 			
 		};
-		double expr_226 = safediv(((m_tone_4 * 2) * 3.1415926535898), 48000);
-		double sin_217 = sin(expr_226);
-		double clamp_218 = ((sin_217 <= 1e-05) ? 1e-05 : ((sin_217 >= 0.99999) ? 0.99999 : sin_217));
+		t_sample expr_226 = safediv(((m_tone_4 * 2) * 3.1415926535898), 48000);
+		t_sample sin_217 = sin(expr_226);
+		t_sample clamp_218 = ((sin_217 <= 1e-05) ? 1e-05 : ((sin_217 >= 0.99999) ? 0.99999 : sin_217));
 		// the main sample loop;
 		while ((__n--)) { 
-			const double in1 = (*(__in1++));
-			double mix_229 = (m_y_2 + (clamp_218 * (in1 - m_y_2)));
-			double mix_215 = mix_229;
+			const t_sample in1 = (*(__in1++));
+			t_sample mix_229 = (m_y_2 + (clamp_218 * (in1 - m_y_2)));
+			t_sample mix_215 = mix_229;
 			m_cycle_7.freq(m_rate_6);
-			double cycle_221 = m_cycle_7(__sinedata);
-			double cycleindex_222 = m_cycle_7.phase();
-			double add_220 = (cycle_221 + 1);
-			double mul_219 = (add_220 * 0.5);
-			double mul_223 = (m_depth_5 * mul_219);
-			double mstosamps_214 = (mul_223 * (samplerate * 0.001));
-			double mix_230 = (mstosamps_214 + (0.999 * (m_smth_1 - mstosamps_214)));
-			double mix_213 = mix_230;
-			double tap_225 = m_delay_3.read_linear(mix_213);
-			double out1 = tap_225;
-			double y0_next_227 = mix_215;
-			double smth_next_228 = mix_213;
+			t_sample cycle_221 = m_cycle_7(__sinedata);
+			t_sample cycleindex_222 = m_cycle_7.phase();
+			t_sample add_220 = (cycle_221 + 1);
+			t_sample mul_219 = (add_220 * 0.5);
+			t_sample mul_223 = (m_depth_5 * mul_219);
+			t_sample mstosamps_214 = (mul_223 * (samplerate * 0.001));
+			t_sample mix_230 = (mstosamps_214 + (0.999 * (m_smth_1 - mstosamps_214)));
+			t_sample mix_213 = mix_230;
+			t_sample tap_225 = m_delay_3.read_linear(mix_213);
+			t_sample out1 = tap_225;
+			t_sample y0_next_227 = mix_215;
+			t_sample smth_next_228 = mix_213;
 			m_delay_3.write(mix_215);
 			m_y_2 = y0_next_227;
 			m_smth_1 = smth_next_228;
@@ -102,13 +102,13 @@ typedef struct State {
 		return __exception;
 		
 	};
-	inline void set_tone(double _value) {
+	inline void set_tone(t_sample _value) {
 		m_tone_4 = (_value < 500 ? 500 : (_value > 12000 ? 12000 : _value));
 	};
-	inline void set_depth(double _value) {
+	inline void set_depth(t_sample _value) {
 		m_depth_5 = (_value < 0.1 ? 0.1 : (_value > 5 ? 5 : _value));
 	};
-	inline void set_rate(double _value) {
+	inline void set_rate(t_sample _value) {
 		m_rate_6 = (_value < 0.1 ? 0.1 : (_value > 10 ? 10 : _value));
 	};
 	
@@ -121,8 +121,8 @@ typedef struct State {
 
 /// Number of signal inputs and outputs 
 
-int gen_kernel_numins = 1;
-int gen_kernel_numouts = 1;
+const int gen_kernel_numins = 1;
+const int gen_kernel_numouts = 1;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
@@ -149,7 +149,7 @@ void reset(CommonState *cself) {
 
 /// Set a parameter of a State object 
 
-void setparameter(CommonState *cself, long index, double value, void *ref) {
+void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State * self = (State *)cself;
 	switch (index) {
 		case 0: self->set_tone(value); break;
@@ -162,7 +162,7 @@ void setparameter(CommonState *cself, long index, double value, void *ref) {
 
 /// Get the value of a parameter of a State object 
 
-void getparameter(CommonState *cself, long index, double *value) {
+void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
 		case 0: *value = self->m_tone_4; break;
@@ -175,7 +175,7 @@ void getparameter(CommonState *cself, long index, double *value) {
 
 /// Allocate and configure a new State object and it's internal CommonState:
 
-void * create(double sr, long vs) {
+void * create(t_param sr, long vs) {
 	State *self = new State;
 	self->reset(sr, vs);
 	ParamInfo *pi;
