@@ -17,29 +17,27 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************************************************/
 
+#ifndef GENLIB_COMMON_WIN_H
+#define GENLIB_COMMON_WIN_H
 
-#include "genlib.h"
-#include "genlib_exportfunctions.h"
-#include "genlib_ops.h"
+#ifdef _MSC_VER
+	#define GEN_WINDOWS
+#endif
 
-namespace gen_exported {
+#ifdef GEN_WINDOWS
 
-int num_inputs();
-int num_outputs();
-int num_params();
-int perform(CommonState *cself, t_sample **ins, long numins, t_sample **outs, long numouts, long n);
-void reset(CommonState *cself);
-void setparameter(CommonState *cself, long index, t_param value, void *ref);
-void getparameter(CommonState *cself, long index, t_param *value);
-const char *getparametername(CommonState *cself, long index);
-t_param getparametermin(CommonState *cself, long index);
-t_param getparametermax(CommonState *cself, long index);
-char getparameterhasminmax(CommonState *cself, long index);
-const char *getparameterunits(CommonState *cself, long index);
-size_t getstatesize(CommonState *cself);
-short getstate(CommonState *cself, char *state);
-short setstate(CommonState *cself, const char *state);
-void * create(t_param sr, long vs);
-void destroy(CommonState *cself);
+	#include <malloc.h>
+	#include <limits>
 
-} // gen_exported::
+	typedef __int32 int32_t;
+	typedef unsigned __int32 uint32_t;
+	typedef __int64 int64_t;
+	typedef unsigned __int64 uint64_t;
+	#define malloc_size _msize
+	
+	#define __DBL_EPSILON__ (DBL_EPSILON)
+
+#endif
+
+#endif
+

@@ -17,29 +17,22 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *******************************************************************************************************************/
 
+#ifndef GENLIB_EXPORT_FUNCTIONS_H
+#define GENLIB_EXPORT_FUNCTIONS_H 1
 
-#include "genlib.h"
-#include "genlib_exportfunctions.h"
-#include "genlib_ops.h"
+typedef char *t_ptr; 
 
-namespace gen_exported {
+t_ptr sysmem_newptr(t_ptr_size size);
+t_ptr sysmem_newptrclear(t_ptr_size size);
+t_ptr sysmem_resizeptr(void *ptr, t_ptr_size newsize);
+t_ptr sysmem_resizeptrclear(void *ptr, t_ptr_size newsize);
+t_ptr_size sysmem_ptrsize(void *ptr);
+void sysmem_freeptr(void *ptr);
+void sysmem_copyptr(const void *src, void *dst, t_ptr_size bytes);
+unsigned long systime_ticks(void);
 
-int num_inputs();
-int num_outputs();
-int num_params();
-int perform(CommonState *cself, t_sample **ins, long numins, t_sample **outs, long numouts, long n);
-void reset(CommonState *cself);
-void setparameter(CommonState *cself, long index, t_param value, void *ref);
-void getparameter(CommonState *cself, long index, t_param *value);
-const char *getparametername(CommonState *cself, long index);
-t_param getparametermin(CommonState *cself, long index);
-t_param getparametermax(CommonState *cself, long index);
-char getparameterhasminmax(CommonState *cself, long index);
-const char *getparameterunits(CommonState *cself, long index);
-size_t getstatesize(CommonState *cself);
-short getstate(CommonState *cself, char *state);
-short setstate(CommonState *cself, const char *state);
-void * create(t_param sr, long vs);
-void destroy(CommonState *cself);
+void genlib_report_error(const char *s);
+void genlib_report_message(const char *s);
+void set_zero64(t_sample *mem, long size);
 
-} // gen_exported::
+#endif // GENLIB_EXPORT_FUNCTIONS_H
