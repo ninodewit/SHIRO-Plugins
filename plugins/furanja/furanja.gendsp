@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 249.0, 79.0, 632.0, 705.0 ],
+		"rect" : [ 551.0, 79.0, 632.0, 705.0 ],
 		"bgcolor" : [ 0.9, 0.9, 0.9, 1.0 ],
 		"editing_bgcolor" : [ 0.9, 0.9, 0.9, 1.0 ],
 		"bglocked" : 0,
@@ -246,9 +246,9 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 298.25, 219.0, 215.0, 22.0 ],
+					"patching_rect" : [ 298.25, 219.0, 227.0, 22.0 ],
 					"style" : "",
-					"text" : "param duty 0.5 @min 0.01 @max 0.99"
+					"text" : "param shape 0.5 @min 0.01 @max 0.99"
 				}
 
 			}
