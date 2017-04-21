@@ -36,14 +36,14 @@ typedef struct State {
 	Phasor __m_phasor_11;
 	int __exception;
 	int vectorsize;
-	t_sample m_mix_9;
-	t_sample m_rate_8;
+	t_sample m_rate_9;
+	t_sample m_mix_8;
 	t_sample m_smth_2;
 	t_sample m_width_10;
 	t_sample m_fdbck_1;
-	t_sample m_duty_7;
+	t_sample m_tz_7;
 	t_sample samples_to_seconds;
-	t_sample m_tz_6;
+	t_sample m_shape_6;
 	t_sample samplerate;
 	t_sample m_feedback_5;
 	// re-initialize all member variables;
@@ -56,10 +56,10 @@ typedef struct State {
 		m_delay_3.reset("m_delay_3", samplerate);
 		m_delay_4.reset("m_delay_4", samplerate);
 		m_feedback_5 = 30;
-		m_tz_6 = 1;
-		m_duty_7 = 0.5;
-		m_rate_8 = 0.5;
-		m_mix_9 = (-100);
+		m_shape_6 = 0.5;
+		m_tz_7 = 1;
+		m_mix_8 = (-100);
+		m_rate_9 = 0.5;
 		m_width_10 = 3;
 		samples_to_seconds = (1 / samplerate);
 		__m_phasor_11.reset(0);
@@ -79,9 +79,9 @@ typedef struct State {
 			return __exception;
 			
 		};
-		t_sample div_7 = (m_mix_9 * 0.01);
+		t_sample div_7 = (m_mix_8 * 0.01);
 		t_sample div_6 = (m_feedback_5 * 0.01);
-		t_sample round_1 = round(m_tz_6);
+		t_sample round_1 = round(m_tz_7);
 		t_sample div_8 = (m_width_10 * 0.5);
 		t_sample mul_9 = (round_1 * div_8);
 		t_sample mstosamps_16 = (mul_9 * (samplerate * 0.001));
@@ -92,14 +92,14 @@ typedef struct State {
 			t_sample mul_10 = (m_fdbck_1 * div_6);
 			t_sample add_11 = (in1 + mul_10);
 			t_sample tap_18 = m_delay_4.read_linear(mstosamps_16);
-			t_sample phasor_12 = __m_phasor_11(m_rate_8, samples_to_seconds);
-			t_sample triangle_13 = triangle(phasor_12, m_duty_7);
+			t_sample phasor_12 = __m_phasor_11(m_rate_9, samples_to_seconds);
+			t_sample triangle_13 = triangle(phasor_12, m_shape_6);
 			t_sample add_22 = (triangle_13 + 1);
 			t_sample mul_21 = (add_22 * 0.5);
 			t_sample mul_23 = (m_width_10 * mul_21);
 			t_sample mstosamps_20 = (mul_23 * (samplerate * 0.001));
-			t_sample mix_38 = (mstosamps_20 + (0.999 * (m_smth_2 - mstosamps_20)));
-			t_sample mix_19 = mix_38;
+			t_sample mix_28 = (mstosamps_20 + (0.999 * (m_smth_2 - mstosamps_20)));
+			t_sample mix_19 = mix_28;
 			t_sample tap_25 = m_delay_3.read_linear(mix_19);
 			t_sample mul_14 = (tap_25 * div_7);
 			t_sample add_15 = (tap_18 + mul_14);
@@ -108,12 +108,12 @@ typedef struct State {
 			t_sample mul_4 = (mul_5 * 0.28);
 			t_sample add_3 = (mul_4 + 1);
 			t_sample div_2 = safediv(add_15, add_3);
-			t_sample smth_next_34 = fixdenorm(mix_19);
-			t_sample fdbck_next_35 = fixdenorm(div_2);
+			t_sample smth_next_26 = fixdenorm(mix_19);
+			t_sample fdbck_next_27 = fixdenorm(div_2);
 			m_delay_4.write(add_11);
 			m_delay_3.write(add_11);
-			m_smth_2 = smth_next_34;
-			m_fdbck_1 = fdbck_next_35;
+			m_smth_2 = smth_next_26;
+			m_fdbck_1 = fdbck_next_27;
 			m_delay_3.step();
 			m_delay_4.step();
 			// assign results to output buffer;
@@ -126,17 +126,17 @@ typedef struct State {
 	inline void set_feedback(t_param _value) {
 		m_feedback_5 = (_value < 0 ? 0 : (_value > 50 ? 50 : _value));
 	};
+	inline void set_shape(t_param _value) {
+		m_shape_6 = (_value < 0.01 ? 0.01 : (_value > 0.99 ? 0.99 : _value));
+	};
 	inline void set_tz(t_param _value) {
-		m_tz_6 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	inline void set_duty(t_param _value) {
-		m_duty_7 = (_value < 0.01 ? 0.01 : (_value > 0.99 ? 0.99 : _value));
-	};
-	inline void set_rate(t_param _value) {
-		m_rate_8 = (_value < 0.1 ? 0.1 : (_value > 10 ? 10 : _value));
+		m_tz_7 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
 	};
 	inline void set_mix(t_param _value) {
-		m_mix_9 = (_value < -100 ? -100 : (_value > 100 ? 100 : _value));
+		m_mix_8 = (_value < -100 ? -100 : (_value > 100 ? 100 : _value));
+	};
+	inline void set_rate(t_param _value) {
+		m_rate_9 = (_value < 0.1 ? 0.1 : (_value > 10 ? 10 : _value));
 	};
 	inline void set_width(t_param _value) {
 		m_width_10 = (_value < 1 ? 1 : (_value > 10 ? 10 : _value));
@@ -182,10 +182,10 @@ void reset(CommonState *cself) {
 void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State * self = (State *)cself;
 	switch (index) {
-		case 0: self->set_duty(value); break;
-		case 1: self->set_feedback(value); break;
-		case 2: self->set_mix(value); break;
-		case 3: self->set_rate(value); break;
+		case 0: self->set_feedback(value); break;
+		case 1: self->set_mix(value); break;
+		case 2: self->set_rate(value); break;
+		case 3: self->set_shape(value); break;
 		case 4: self->set_tz(value); break;
 		case 5: self->set_width(value); break;
 		
@@ -198,11 +198,11 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: *value = self->m_duty_7; break;
-		case 1: *value = self->m_feedback_5; break;
-		case 2: *value = self->m_mix_9; break;
-		case 3: *value = self->m_rate_8; break;
-		case 4: *value = self->m_tz_6; break;
+		case 0: *value = self->m_feedback_5; break;
+		case 1: *value = self->m_mix_8; break;
+		case 2: *value = self->m_rate_9; break;
+		case 3: *value = self->m_shape_6; break;
+		case 4: *value = self->m_tz_7; break;
 		case 5: *value = self->m_width_10; break;
 		
 		default: break;
@@ -286,22 +286,8 @@ void * create(t_param sr, long vs) {
 	self->__commonstate.vs = vs;
 	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(6 * sizeof(ParamInfo));
 	self->__commonstate.numparams = 6;
-	// initialize parameter 0 ("m_duty_7")
+	// initialize parameter 0 ("m_feedback_5")
 	pi = self->__commonstate.params + 0;
-	pi->name = "duty";
-	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_duty_7;
-	pi->defaultref = 0;
-	pi->hasinputminmax = false;
-	pi->inputmin = 0; 
-	pi->inputmax = 1;
-	pi->hasminmax = true;
-	pi->outputmin = 0.01;
-	pi->outputmax = 0.99;
-	pi->exp = 0;
-	pi->units = "";		// no units defined
-	// initialize parameter 1 ("m_feedback_5")
-	pi = self->__commonstate.params + 1;
 	pi->name = "feedback";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
 	pi->defaultvalue = self->m_feedback_5;
@@ -314,11 +300,11 @@ void * create(t_param sr, long vs) {
 	pi->outputmax = 50;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 2 ("m_mix_9")
-	pi = self->__commonstate.params + 2;
+	// initialize parameter 1 ("m_mix_8")
+	pi = self->__commonstate.params + 1;
 	pi->name = "mix";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_mix_9;
+	pi->defaultvalue = self->m_mix_8;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
@@ -328,11 +314,11 @@ void * create(t_param sr, long vs) {
 	pi->outputmax = 100;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 3 ("m_rate_8")
-	pi = self->__commonstate.params + 3;
+	// initialize parameter 2 ("m_rate_9")
+	pi = self->__commonstate.params + 2;
 	pi->name = "rate";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_rate_8;
+	pi->defaultvalue = self->m_rate_9;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
@@ -342,11 +328,25 @@ void * create(t_param sr, long vs) {
 	pi->outputmax = 10;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 4 ("m_tz_6")
+	// initialize parameter 3 ("m_shape_6")
+	pi = self->__commonstate.params + 3;
+	pi->name = "shape";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_shape_6;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0; 
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0.01;
+	pi->outputmax = 0.99;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 4 ("m_tz_7")
 	pi = self->__commonstate.params + 4;
 	pi->name = "tz";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_tz_6;
+	pi->defaultvalue = self->m_tz_7;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 

@@ -38,6 +38,18 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 182.0, 441.0, 150.0, 20.0 ],
+					"style" : "",
+					"text" : "ramp?"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-52",
 					"maxclass" : "ezadc~",
 					"numinlets" : 1,
@@ -1555,16 +1567,16 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-11" : [ "flonum", "flonum", 0 ],
 			"obj-13" : [ "flonum[2]", "flonum[2]", 0 ],
-			"obj-5" : [ "flonum[4]", "flonum", 0 ],
-			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
-			"obj-25" : [ "number[1]", "number[1]", 0 ],
-			"obj-8::obj-35" : [ "[5]", "Level", 0 ],
-			"obj-44" : [ "number[2]", "number[2]", 0 ],
 			"obj-50" : [ "toggle", "toggle", 0 ],
+			"obj-34" : [ "number", "number", 0 ],
+			"obj-5" : [ "flonum[4]", "flonum", 0 ],
 			"obj-41" : [ "flonum[3]", "flonum", 0 ],
-			"obj-34" : [ "number", "number", 0 ]
+			"obj-11" : [ "flonum", "flonum", 0 ],
+			"obj-25" : [ "number[1]", "number[1]", 0 ],
+			"obj-44" : [ "number[2]", "number[2]", 0 ],
+			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
+			"obj-8::obj-35" : [ "[5]", "Level", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
