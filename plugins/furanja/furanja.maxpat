@@ -3,13 +3,13 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 7,
-			"minor" : 2,
-			"revision" : 5,
+			"minor" : 3,
+			"revision" : 3,
 			"architecture" : "x86",
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 36.0, 112.0, 827.0, 549.0 ],
+		"rect" : [ 36.0, 112.0, 1077.0, 525.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -38,24 +38,12 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-4",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 182.0, 441.0, 150.0, 20.0 ],
-					"style" : "",
-					"text" : "ramp?"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-52",
 					"maxclass" : "ezadc~",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "signal" ],
-					"patching_rect" : [ 596.0, 66.0, 45.0, 45.0 ],
+					"patching_rect" : [ 295.0, 16.0, 45.0, 45.0 ],
 					"style" : ""
 				}
 
@@ -491,7 +479,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 357.0, 259.0, 45.0, 45.0 ],
+					"patching_rect" : [ 357.0, 214.0, 45.0, 45.0 ],
 					"style" : ""
 				}
 
@@ -509,8 +497,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 7,
-							"minor" : 2,
-							"revision" : 5,
+							"minor" : 3,
+							"revision" : 3,
 							"architecture" : "x86",
 							"modernui" : 1
 						}
@@ -1050,6 +1038,7 @@
 									"destination" : [ "obj-4", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
+									"order" : 3,
 									"source" : [ "obj-39", 0 ]
 								}
 
@@ -1060,6 +1049,7 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 25.25, 547.5, 122.25, 547.5 ],
+									"order" : 0,
 									"source" : [ "obj-39", 0 ]
 								}
 
@@ -1070,6 +1060,7 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 25.25, 547.5, 111.75, 547.5 ],
+									"order" : 1,
 									"source" : [ "obj-39", 0 ]
 								}
 
@@ -1080,6 +1071,7 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 25.25, 588.5, 98.25, 588.5 ],
+									"order" : 2,
 									"source" : [ "obj-39", 0 ]
 								}
 
@@ -1144,6 +1136,7 @@
 									"destination" : [ "obj-13", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
+									"order" : 0,
 									"source" : [ "obj-48", 0 ]
 								}
 
@@ -1154,6 +1147,7 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 263.25, 175.5, 111.75, 175.5 ],
+									"order" : 1,
 									"source" : [ "obj-48", 0 ]
 								}
 
@@ -1191,6 +1185,7 @@
 									"disabled" : 0,
 									"hidden" : 0,
 									"midpoints" : [ 25.25, 298.0, 243.25, 298.0 ],
+									"order" : 0,
 									"source" : [ "obj-51", 0 ]
 								}
 
@@ -1200,6 +1195,7 @@
 									"destination" : [ "obj-27", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
+									"order" : 1,
 									"source" : [ "obj-51", 0 ]
 								}
 
@@ -1218,6 +1214,7 @@
 									"destination" : [ "obj-17", 1 ],
 									"disabled" : 0,
 									"hidden" : 0,
+									"order" : 1,
 									"source" : [ "obj-6", 0 ]
 								}
 
@@ -1227,6 +1224,7 @@
 									"destination" : [ "obj-5", 0 ],
 									"disabled" : 0,
 									"hidden" : 0,
+									"order" : 0,
 									"source" : [ "obj-6", 0 ]
 								}
 
@@ -1366,9 +1364,21 @@
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
+					"destination" : [ "obj-2", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"midpoints" : [ 366.5, 204.5, 392.5, 204.5 ],
+					"order" : 0,
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"order" : 1,
 					"source" : [ "obj-1", 0 ]
 				}
 
@@ -1396,7 +1406,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 93.5, 145.5, 366.5, 145.5 ],
+					"midpoints" : [ 93.5, 135.0, 363.0, 135.0, 363.0, 168.0, 366.5, 168.0 ],
 					"source" : [ "obj-18", 0 ]
 				}
 
@@ -1406,7 +1416,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 25.5, 145.5, 366.5, 145.5 ],
+					"midpoints" : [ 25.5, 135.0, 363.0, 135.0, 363.0, 168.0, 366.5, 168.0 ],
 					"source" : [ "obj-21", 0 ]
 				}
 
@@ -1416,6 +1426,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [ 160.5, 159.0, 366.5, 159.0 ],
 					"source" : [ "obj-22", 0 ]
 				}
 
@@ -1452,6 +1463,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [ 93.5, 318.0, 342.0, 318.0, 342.0, 168.0, 366.5, 168.0 ],
 					"source" : [ "obj-35", 0 ]
 				}
 
@@ -1461,6 +1473,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [ 160.5, 318.0, 342.0, 318.0, 342.0, 168.0, 366.5, 168.0 ],
 					"source" : [ "obj-38", 0 ]
 				}
 
@@ -1506,7 +1519,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 25.5, 145.0, 366.5, 145.0 ],
+					"midpoints" : [ 25.5, 318.0, 342.0, 318.0, 342.0, 168.0, 366.5, 168.0 ],
 					"source" : [ "obj-45", 0 ]
 				}
 
@@ -1543,6 +1556,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
+					"midpoints" : [ 304.5, 159.0, 366.5, 159.0 ],
 					"source" : [ "obj-52", 0 ]
 				}
 
@@ -1570,13 +1584,13 @@
 			"obj-13" : [ "flonum[2]", "flonum[2]", 0 ],
 			"obj-50" : [ "toggle", "toggle", 0 ],
 			"obj-34" : [ "number", "number", 0 ],
-			"obj-5" : [ "flonum[4]", "flonum", 0 ],
-			"obj-41" : [ "flonum[3]", "flonum", 0 ],
 			"obj-11" : [ "flonum", "flonum", 0 ],
+			"obj-41" : [ "flonum[3]", "flonum", 0 ],
 			"obj-25" : [ "number[1]", "number[1]", 0 ],
 			"obj-44" : [ "number[2]", "number[2]", 0 ],
+			"obj-8::obj-35" : [ "[5]", "Level", 0 ],
 			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
-			"obj-8::obj-35" : [ "[5]", "Level", 0 ]
+			"obj-5" : [ "flonum[4]", "flonum", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{

@@ -9,7 +9,7 @@
 			"modernui" : 1
 		}
 ,
-		"rect" : [ 34.0, 79.0, 1212.0, 683.0 ],
+		"rect" : [ 34.0, 79.0, 884.0, 683.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -74,7 +74,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "signal" ],
-					"patching_rect" : [ 225.0, 46.0, 45.0, 45.0 ],
+					"patching_rect" : [ 295.0, 16.0, 45.0, 45.0 ],
 					"style" : ""
 				}
 
@@ -323,7 +323,7 @@
 							"parameter_longname" : "flonum[6]",
 							"parameter_shortname" : "flonum[6]",
 							"parameter_type" : 3,
-							"parameter_initial" : [ 6000 ],
+							"parameter_initial" : [ 1000 ],
 							"parameter_invisible" : 1
 						}
 
@@ -1902,7 +1902,7 @@
 					"destination" : [ "obj-1", 1 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 234.5, 159.0, 895.5, 159.0 ],
+					"midpoints" : [ 304.5, 159.0, 895.5, 159.0 ],
 					"order" : 0,
 					"source" : [ "obj-7", 0 ]
 				}
@@ -1913,7 +1913,7 @@
 					"destination" : [ "obj-1", 0 ],
 					"disabled" : 0,
 					"hidden" : 0,
-					"midpoints" : [ 234.5, 159.0, 366.5, 159.0 ],
+					"midpoints" : [ 304.5, 159.0, 366.5, 159.0 ],
 					"order" : 1,
 					"source" : [ "obj-7", 0 ]
 				}
