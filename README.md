@@ -1,2 +1,2 @@
 # SHIRO-Plugins
-Collection of SHIRO Plugins made in Max Gen
+Collection of SHIRO Plugins for the MOD Duo made in MAX Gen~

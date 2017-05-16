@@ -12,7 +12,6 @@ all: plugins gen
 
 plugins:
 	$(MAKE) all -C plugins/shiroverb
-	$(MAKE) all -C plugins/pitchotto
 	$(MAKE) all -C plugins/modulay
 	$(MAKE) all -C plugins/larynx
 	$(MAKE) all -C plugins/harmless
@@ -31,7 +30,6 @@ dpf/utils/lv2_ttl_generator:
 clean:
 	$(MAKE) clean -C dpf/utils/lv2-ttl-generator
 	$(MAKE) clean -C plugins/shiroverb
-	$(MAKE) clean -C plugins/pitchotto
 	$(MAKE) clean -C plugins/modulay
 	$(MAKE) clean -C plugins/larynx
 	$(MAKE) clean -C plugins/harmless
