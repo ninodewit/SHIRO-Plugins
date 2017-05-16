@@ -43,10 +43,19 @@ install:
 	install -d $(DESTDIR)$(PREFIX)/lib/dssi/
 	install -d $(DESTDIR)$(PREFIX)/lib/lv2/
 	install -d $(DESTDIR)$(PREFIX)/lib/vst/
+	install -d $(DESTDIR)$(PREFIX)/bin/
 
 	cp bin/*-ladspa.* $(DESTDIR)$(PREFIX)/lib/ladspa/
 	cp bin/*-vst.*    $(DESTDIR)$(PREFIX)/lib/vst/
 	cp -r bin/*.lv2   $(DESTDIR)$(PREFIX)/lib/lv2/
+
+ifeq ($(HAVE_JACK),true)
+	cp -r bin/Harmless  $(DESTDIR)$(PREFIX)/bin/
+	cp -r bin/Larynx  $(DESTDIR)$(PREFIX)/bin/
+	cp -r bin/Modulay  $(DESTDIR)$(PREFIX)/bin/
+	cp -r bin/Pitchotto  $(DESTDIR)$(PREFIX)/bin/
+	cp -r bin/Shiroverb  $(DESTDIR)$(PREFIX)/bin/
+endif
 
 # --------------------------------------------------------------
 
