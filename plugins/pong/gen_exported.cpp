@@ -38,11 +38,11 @@ typedef struct State {
 	Delay m_delay_6;
 	int __exception;
 	int vectorsize;
-	t_sample m_time_10;
-	t_sample m_mix_11;
-	t_sample m_bleed_12;
-	t_sample m_repeats_9;
-	t_sample m_tone_8;
+	t_sample m_tone_10;
+	t_sample m_time_11;
+	t_sample m_mix_12;
+	t_sample m_bleed_9;
+	t_sample m_repeats_8;
 	t_sample samplerate;
 	t_sample m_y_2;
 	t_sample m_smth_4;
@@ -60,11 +60,11 @@ typedef struct State {
 		m_delay_5.reset("m_delay_5", samplerate);
 		m_delay_6.reset("m_delay_6", samplerate);
 		m_delay_7.reset("m_delay_7", samplerate);
-		m_tone_8 = 3000;
-		m_repeats_9 = 75;
-		m_time_10 = 500;
-		m_mix_11 = 75;
-		m_bleed_12 = 0;
+		m_repeats_8 = 75;
+		m_bleed_9 = 0;
+		m_tone_10 = 3000;
+		m_time_11 = 500;
+		m_mix_12 = 75;
 		__m_dcblock_13.reset();
 		__m_dcblock_15.reset();
 		genlib_reset_complete(this);
@@ -84,55 +84,55 @@ typedef struct State {
 			return __exception;
 			
 		};
-		t_sample expr_30 = (((m_tone_8 * 2) * 3.1415926535898) * 2.0833333333333e-05);
-		t_sample mul_17 = (m_mix_11 * 0.01);
-		t_sample mstosamps_29 = (m_time_10 * (samplerate * 0.001));
-		t_sample mul_7 = (mstosamps_29 * 2);
-		t_sample mul_1 = (m_bleed_12 * 0.01);
-		t_sample sin_24 = sin(expr_30);
-		t_sample clamp_25 = ((sin_24 <= 1e-05) ? 1e-05 : ((sin_24 >= 0.99999) ? 0.99999 : sin_24));
-		t_sample mul_11 = (m_repeats_9 * 0.01);
+		t_sample expr_64 = (((m_tone_10 * 2) * 3.1415926535898) * 2.0833333333333e-05);
+		t_sample mul_51 = (m_mix_12 * 0.01);
+		t_sample mstosamps_63 = (m_time_11 * (samplerate * 0.001));
+		t_sample mul_41 = (mstosamps_63 * 2);
+		t_sample mul_35 = (m_bleed_9 * 0.01);
+		t_sample sin_58 = sin(expr_64);
+		t_sample clamp_59 = ((sin_58 <= 1e-05) ? 1e-05 : ((sin_58 >= 0.99999) ? 0.99999 : sin_58));
+		t_sample mul_55 = (m_repeats_8 * 0.01);
 		int min_14 = (-1);
-		t_sample mul_21 = (m_repeats_9 * 0.01);
+		t_sample mul_45 = (m_repeats_8 * 0.01);
 		int min_16 = (-1);
 		// the main sample loop;
 		while ((__n--)) { 
 			const t_sample in1 = (*(__in1++));
-			t_sample mix_53 = (mstosamps_29 + (0.999 * (m_smth_4 - mstosamps_29)));
-			t_sample mix_4 = mix_53;
-			t_sample tap_6 = m_delay_7.read_linear(mix_4);
-			t_sample mix_54 = (mul_7 + (0.999 * (m_smth_3 - mul_7)));
-			t_sample mix_18 = mix_54;
-			t_sample tap_15 = m_delay_6.read_linear(mix_18);
-			t_sample tap_28 = m_delay_5.read_linear(mix_18);
-			t_sample add_56 = (tap_15 + tap_6);
-			t_sample mix_55 = (m_y_2 + (clamp_25 * (add_56 - m_y_2)));
-			t_sample mix_12 = mix_55;
-			t_sample mix_57 = (m_y_1 + (clamp_25 * (tap_28 - m_y_1)));
-			t_sample mix_22 = mix_57;
-			t_sample mix_58 = (mix_12 + (mul_1 * (mix_22 - mix_12)));
-			t_sample mul_8 = (mix_58 * mul_17);
-			t_sample out2 = (mul_8 + in1);
-			t_sample mix_59 = (mix_22 + (mul_1 * (mix_12 - mix_22)));
-			t_sample mul_16 = (mix_59 * mul_17);
-			t_sample out1 = (mul_16 + in1);
-			t_sample mul_13 = (mix_12 * mul_11);
-			t_sample dcblock_9 = __m_dcblock_13(mul_13);
-			t_sample clamp_10 = ((dcblock_9 <= min_14) ? min_14 : ((dcblock_9 >= 1) ? 1 : dcblock_9));
-			t_sample mul_26 = (mix_22 * mul_21);
-			t_sample dcblock_19 = __m_dcblock_15(mul_26);
-			t_sample clamp_20 = ((dcblock_19 <= min_16) ? min_16 : ((dcblock_19 >= 1) ? 1 : dcblock_19));
-			t_sample smth2_next_31 = fixdenorm(mix_4);
-			t_sample smth1_next_32 = fixdenorm(mix_18);
-			t_sample y1_next_33 = fixdenorm(mix_12);
-			t_sample y0_next_34 = fixdenorm(mix_22);
+			t_sample mix_69 = (mstosamps_63 + (0.999 * (m_smth_4 - mstosamps_63)));
+			t_sample mix_38 = mix_69;
+			t_sample tap_40 = m_delay_7.read_linear(mix_38);
+			t_sample mix_70 = (mul_41 + (0.999 * (m_smth_3 - mul_41)));
+			t_sample mix_52 = mix_70;
+			t_sample tap_62 = m_delay_6.read_linear(mix_52);
+			t_sample tap_49 = m_delay_5.read_linear(mix_52);
+			t_sample mix_71 = (m_y_2 + (clamp_59 * (tap_62 - m_y_2)));
+			t_sample mix_56 = mix_71;
+			t_sample add_73 = (tap_49 + tap_40);
+			t_sample mix_72 = (m_y_1 + (clamp_59 * (add_73 - m_y_1)));
+			t_sample mix_46 = mix_72;
+			t_sample mix_74 = (mix_46 + (mul_35 * (mix_56 - mix_46)));
+			t_sample mul_42 = (mix_74 * mul_51);
+			t_sample out2 = (mul_42 + in1);
+			t_sample mix_75 = (mix_56 + (mul_35 * (mix_46 - mix_56)));
+			t_sample mul_50 = (mix_75 * mul_51);
+			t_sample out1 = (mul_50 + in1);
+			t_sample mul_60 = (mix_56 * mul_55);
+			t_sample dcblock_53 = __m_dcblock_13(mul_60);
+			t_sample clamp_54 = ((dcblock_53 <= min_14) ? min_14 : ((dcblock_53 >= 1) ? 1 : dcblock_53));
+			t_sample mul_47 = (mix_46 * mul_45);
+			t_sample dcblock_43 = __m_dcblock_15(mul_47);
+			t_sample clamp_44 = ((dcblock_43 <= min_16) ? min_16 : ((dcblock_43 >= 1) ? 1 : dcblock_43));
+			t_sample smth2_next_65 = fixdenorm(mix_38);
+			t_sample smth1_next_66 = fixdenorm(mix_52);
+			t_sample y0_next_67 = fixdenorm(mix_56);
+			t_sample y1_next_68 = fixdenorm(mix_46);
 			m_delay_7.write(in1);
-			m_delay_6.write(clamp_10);
-			m_delay_5.write((clamp_20 + in1));
-			m_smth_4 = smth2_next_31;
-			m_smth_3 = smth1_next_32;
-			m_y_2 = y1_next_33;
-			m_y_1 = y0_next_34;
+			m_delay_6.write((clamp_54 + in1));
+			m_delay_5.write(clamp_44);
+			m_smth_4 = smth2_next_65;
+			m_smth_3 = smth1_next_66;
+			m_y_2 = y0_next_67;
+			m_y_1 = y1_next_68;
 			m_delay_5.step();
 			m_delay_6.step();
 			m_delay_7.step();
@@ -144,20 +144,20 @@ typedef struct State {
 		return __exception;
 		
 	};
-	inline void set_tone(t_param _value) {
-		m_tone_8 = (_value < 500 ? 500 : (_value > 6000 ? 6000 : _value));
-	};
 	inline void set_repeats(t_param _value) {
-		m_repeats_9 = (_value < 0 ? 0 : (_value > 110 ? 110 : _value));
-	};
-	inline void set_time(t_param _value) {
-		m_time_10 = (_value < 20 ? 20 : (_value > 1000 ? 1000 : _value));
-	};
-	inline void set_mix(t_param _value) {
-		m_mix_11 = (_value < 0 ? 0 : (_value > 100 ? 100 : _value));
+		m_repeats_8 = (_value < 0 ? 0 : (_value > 110 ? 110 : _value));
 	};
 	inline void set_bleed(t_param _value) {
-		m_bleed_12 = (_value < 0 ? 0 : (_value > 50 ? 50 : _value));
+		m_bleed_9 = (_value < 0 ? 0 : (_value > 50 ? 50 : _value));
+	};
+	inline void set_tone(t_param _value) {
+		m_tone_10 = (_value < 500 ? 500 : (_value > 6000 ? 6000 : _value));
+	};
+	inline void set_time(t_param _value) {
+		m_time_11 = (_value < 20 ? 20 : (_value > 1000 ? 1000 : _value));
+	};
+	inline void set_mix(t_param _value) {
+		m_mix_12 = (_value < 0 ? 0 : (_value > 100 ? 100 : _value));
 	};
 	
 } State;
@@ -215,11 +215,11 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: *value = self->m_bleed_12; break;
-		case 1: *value = self->m_mix_11; break;
-		case 2: *value = self->m_repeats_9; break;
-		case 3: *value = self->m_time_10; break;
-		case 4: *value = self->m_tone_8; break;
+		case 0: *value = self->m_bleed_9; break;
+		case 1: *value = self->m_mix_12; break;
+		case 2: *value = self->m_repeats_8; break;
+		case 3: *value = self->m_time_11; break;
+		case 4: *value = self->m_tone_10; break;
 		
 		default: break;
 	}
@@ -302,11 +302,11 @@ void * create(t_param sr, long vs) {
 	self->__commonstate.vs = vs;
 	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(5 * sizeof(ParamInfo));
 	self->__commonstate.numparams = 5;
-	// initialize parameter 0 ("m_bleed_12")
+	// initialize parameter 0 ("m_bleed_9")
 	pi = self->__commonstate.params + 0;
 	pi->name = "bleed";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_bleed_12;
+	pi->defaultvalue = self->m_bleed_9;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
@@ -316,11 +316,11 @@ void * create(t_param sr, long vs) {
 	pi->outputmax = 50;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 1 ("m_mix_11")
+	// initialize parameter 1 ("m_mix_12")
 	pi = self->__commonstate.params + 1;
 	pi->name = "mix";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_mix_11;
+	pi->defaultvalue = self->m_mix_12;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
@@ -330,11 +330,11 @@ void * create(t_param sr, long vs) {
 	pi->outputmax = 100;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 2 ("m_repeats_9")
+	// initialize parameter 2 ("m_repeats_8")
 	pi = self->__commonstate.params + 2;
 	pi->name = "repeats";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_repeats_9;
+	pi->defaultvalue = self->m_repeats_8;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
@@ -344,11 +344,11 @@ void * create(t_param sr, long vs) {
 	pi->outputmax = 110;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 3 ("m_time_10")
+	// initialize parameter 3 ("m_time_11")
 	pi = self->__commonstate.params + 3;
 	pi->name = "time";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_time_10;
+	pi->defaultvalue = self->m_time_11;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 
@@ -358,11 +358,11 @@ void * create(t_param sr, long vs) {
 	pi->outputmax = 1000;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 4 ("m_tone_8")
+	// initialize parameter 4 ("m_tone_10")
 	pi = self->__commonstate.params + 4;
 	pi->name = "tone";
 	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
-	pi->defaultvalue = self->m_tone_8;
+	pi->defaultvalue = self->m_tone_10;
 	pi->defaultref = 0;
 	pi->hasinputminmax = false;
 	pi->inputmin = 0; 

@@ -5,7 +5,7 @@
 			"major" : 7,
 			"minor" : 2,
 			"revision" : 5,
-			"architecture" : "x86",
+			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
@@ -317,7 +317,7 @@
 					"numoutlets" : 0,
 					"patching_rect" : [ 16.0, 16.0, 150.0, 20.0 ],
 					"style" : "",
-					"text" : "MODULAY"
+					"text" : "PONG"
 				}
 
 			}
@@ -412,7 +412,7 @@
 							"major" : 7,
 							"minor" : 2,
 							"revision" : 5,
-							"architecture" : "x86",
+							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
@@ -1676,14 +1676,14 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-8::obj-35" : [ "[5]", "Level", 0 ],
-			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
 			"obj-20" : [ "flonum[15]", "flonum[4]", 0 ],
 			"obj-19" : [ "flonum[16]", "flonum[7]", 0 ],
+			"obj-7" : [ "flonum[7]", "flonum[7]", 0 ],
 			"obj-12" : [ "flonum[5]", "flonum", 0 ],
-			"obj-30" : [ "flonum[6]", "flonum[6]", 0 ],
+			"obj-8::obj-35" : [ "[5]", "Level", 0 ],
 			"obj-25" : [ "flonum[14]", "flonum[5]", 0 ],
-			"obj-7" : [ "flonum[7]", "flonum[7]", 0 ]
+			"obj-8::obj-21::obj-6" : [ "live.tab[3]", "live.tab[1]", 0 ],
+			"obj-30" : [ "flonum[6]", "flonum[6]", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
