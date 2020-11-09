@@ -53,7 +53,6 @@ ifeq ($(HAVE_JACK),true)
 	cp -r bin/Harmless  $(DESTDIR)$(PREFIX)/bin/
 	cp -r bin/Larynx  $(DESTDIR)$(PREFIX)/bin/
 	cp -r bin/Modulay  $(DESTDIR)$(PREFIX)/bin/
-	cp -r bin/Pitchotto  $(DESTDIR)$(PREFIX)/bin/
 	cp -r bin/Shiroverb  $(DESTDIR)$(PREFIX)/bin/
 endif
 
